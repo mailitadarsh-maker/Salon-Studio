@@ -1710,4 +1710,71 @@ img {
   .admin-table-container {
     border-radius: var(--radius-md);
   }
+
+  /* Mobile Persona Switcher Stack */
+  #persona-switcher {
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding: 8px 12px !important;
+    align-items: stretch !important;
+  }
+  .switcher-brand {
+    text-align: center !important;
+    font-size: 0.95rem !important;
+  }
+  .switcher-controls {
+    justify-content: space-between !important;
+    gap: 4px !important;
+    width: 100% !important;
+  }
+  .switcher-controls span {
+    display: none !important;
+  }
+  .switcher-btn {
+    flex: 1 !important;
+    padding: 6px 4px !important;
+    font-size: 0.7rem !important;
+    text-align: center !important;
+  }
+  
+  /* Landing Header Navigation Swiper */
+  .header-layout {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 8px 16px !important;
+  }
+  .brand-logo {
+    font-size: 1.4rem !important;
+  }
+  .public-nav-mobile-btn {
+    display: block !important;
+    padding: 6px 12px !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    border-radius: var(--radius-sm) !important;
+  }
+  .public-nav {
+    order: 3 !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+    gap: 16px !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    justify-content: flex-start !important;
+    padding-bottom: 6px !important;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
+  .public-nav::-webkit-scrollbar {
+    display: none !important;
+  }
+  .public-nav a {
+    font-size: 0.85rem !important;
+  }
+  .public-nav .btn {
+    display: none !important; /* Hide desktop duplicate button */
+  }
 }
