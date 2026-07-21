@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMÉ Salon & Studio — Book Your Glow</title>
+  <meta name="description" content="LUMÉ is a premium unisex hair, beauty, and grooming salon booking platform. Experience expert styling, custom color transformations, and deluxe spa treatments.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =====================================================
+       DEVELOPER PERSONA SWITCHER
+       ===================================================== -->
+  <header id="persona-switcher">
+    <div class="switcher-brand">LUMÉ <span>DEMO UTILITY</span></div>
+    <div class="switcher-controls">
+      <span style="color: #9E9790; margin-right: 8px; align-self: center;">View Mode:</span>
+      <button class="switcher-btn active" id="btn-switch-landing" onclick="switchPersona('landing')">1. Public Landing</button>
+      <button class="switcher-btn" id="btn-switch-customer" onclick="switchPersona('customer')">2. Customer App</button>
+      <button class="switcher-btn" id="btn-switch-admin" onclick="switchPersona('admin')">3. Admin Dashboard</button>
+    </div>
+  </header>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- =====================================================
+       PART A — PUBLIC LANDING PAGE (BEFORE LOGIN)
+       ===================================================== -->
+  <main id="landing-view">
+    <!-- Landing Header -->
+    <header class="public-header">
+      <div class="container header-layout">
+        <a href="#" class="brand-logo">LUMÉ<span>.</span></a>
+        <nav class="public-nav">
+          <a href="#about">About</a>
+          <a href="#services">ServicesMenu</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#staff">Stylists</a>
+          <a href="#contact">Contact</a>
+          <button class="btn btn-primary" onclick="goToCustomerBooking()">Book Appointment</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero" style="background-image: url('assets/salon_interior.jpg');">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Book Your Glow.</h1>
+        <p>A luxurious, unisex hair and beauty sanctuary where professional artistry meets modern elegance.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary" onclick="goToCustomerBooking()">Book Appointment</button>
+          <a href="#services" class="btn btn-secondary">Explore Services</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section container" id="about">
+      <div class="text-center">
+        <h2 class="section-title">A New Standard of Grooming & Beauty</h2>
+        <p class="section-subtitle">Crafted with care, designed for everyone</p>
+      </div>
+      <div class="contact-layout" style="align-items: center;">
+        <div>
+          <h3 style="font-size: 2rem; margin-bottom: 20px;">Who We Are</h3>
+          <p style="color: var(--color-text-secondary); margin-bottom: 20px;">
+            LUMÉ Salon & Studio was founded on the philosophy that hair styling and skin grooming are expressions of self-care and artistry. We offer a modern, gender-neutral sanctuary designed with premium comfort in mind.
+          </p>
+          <p style="color: var(--color-text-secondary); margin-bottom: 24px;">
+            Our stylists, barbers, and nail estheticians are vetted experts, staying at the forefront of contemporary fashion, techniques, and sustainable beauty formulations.
+          </p>
+          <button class="btn btn-secondary" onclick="goToCustomerBooking()">Meet The Team</button>
+        </div>
+        <div class="stats-row">
+          <div class="stat-box text-center">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Years</div>
+          </div>
+          <div class="stat-box text-center">
+            <div class="stat-number">20+</div>
+            <div class="stat-label">Experts</div>
+          </div>
+          <div class="stat-box text-center">
+            <div class="stat-number">5k+</div>
+            <div class="stat-label">Happy Clients</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="section" id="services" style="background-color: var(--color-bg-secondary);">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-title">Featured Services</h2>
+          <p class="section-subtitle">Experience customized treatments tailored to your aesthetic</p>
+        </div>
+
+        <div class="tab-nav" id="landing-services-tabs">
+          <!-- Populated dynamically by app.js -->
+        </div>
+
+        <div id="landing-services-grid" style="display: flex; flex-direction: column; gap: 20px; margin-top: 24px;">
+          <!-- Populated dynamically by app.js -->
+        </div>
+
+        <div class="text-center" style="margin-top: 48px;">
+          <button class="btn btn-secondary" onclick="goToCustomerBooking()">View Full Service Menu</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="section container" id="gallery">
+      <div class="text-center">
+        <h2 class="section-title">The Studio Gallery</h2>
+        <p class="section-subtitle">A glimpse inside our sanctuary of luxury</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox('assets/salon_interior.jpg')">
+          <img src="assets/salon_interior.jpg" alt="LUMÉ Salon Interior styling bays">
+          <div class="gallery-overlay"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('assets/stylist_sarah.jpg')">
+          <img src="assets/stylist_sarah.jpg" alt="Priya working on global highlights">
+          <div class="gallery-overlay"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('assets/stylist_marcus.jpg')">
+          <img src="assets/stylist_marcus.jpg" alt="Rohan precision beard styling">
+          <div class="gallery-overlay"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('assets/stylist_elena.jpg')">
+          <img src="assets/stylist_elena.jpg" alt="Anjali detailing gel nail art">
+          <div class="gallery-overlay"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Staff Section -->
+    <section class="section" id="staff" style="background-color: var(--color-bg-secondary);">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-title">Our Resident Experts</h2>
+          <p class="section-subtitle">Passionate artisans dedicated to their craft</p>
+        </div>
+        <div class="card-grid" id="landing-staff-grid">
+          <!-- Populated dynamically by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section container" id="reviews">
+      <div class="text-center">
+        <h2 class="section-title">LUMÉ Experience Stories</h2>
+        <p class="section-subtitle">What our beloved clients say about their transformations</p>
+      </div>
+      <div class="reviews-carousel" id="landing-reviews-carousel">
+        <!-- Populated dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- Location & Contact Section -->
+    <section class="section container" id="contact">
+      <div class="text-center">
+        <h2 class="section-title">Find & Connect</h2>
+        <p class="section-subtitle">Located in the heart of the design district</p>
+      </div>
+      <div class="contact-layout">
+        <div>
+          <h3 style="margin-bottom: 16px;">Contact Us</h3>
+          <p style="color: var(--color-text-secondary); margin-bottom: 24px;">
+            142 Rosewood Avenue, Suite 10, Design District<br>
+            Phone: +91 98300 58630<br>
+            WhatsApp: +91 98300 58630
+          </p>
+          <div style="display: flex; gap: 12px; margin-bottom: 32px;">
+            <a href="tel:+919830058630" class="btn btn-primary">Call Now</a>
+            <a href="https://wa.me/919830058630" target="_blank" class="btn btn-secondary">WhatsApp Us</a>
+          </div>
+
+          <h3 style="margin-bottom: 16px;">Opening Hours</h3>
+          <table class="opening-hours-table">
+            <tr><td>Monday - Friday</td><td>09:00 AM - 08:00 PM</td></tr>
+            <tr><td>Saturday</td><td>09:00 AM - 06:00 PM</td></tr>
+            <tr><td>Sunday</td><td>10:00 AM - 04:00 PM</td></tr>
+          </table>
+        </div>
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.4285816912384!2d-73.98785312423377!3d40.75101103512217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="public-footer">
+      <div class="container footer-layout">
+        <div class="footer-column">
+          <div class="brand-logo" style="color: #FFFFFF; margin-bottom: 16px;">LUMÉ<span>.</span></div>
+          <p>Elevating personal style with state-of-the-art grooming. Elegant, minimal, unisex care.</p>
+        </div>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <div class="footer-links">
+            <a href="#about">About Our Studio</a>
+            <a href="#services">Services Catalog</a>
+            <a href="#staff">Artisan Team</a>
+            <a href="#contact">Location & Hours</a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Social</h3>
+          <div class="footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+            <a href="#">Facebook</a>
+            <a href="#">TikTok</a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Newsletter</h3>
+          <p>Join the LUMÉ newsletter for seasonal tips and booking priority.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+            <input type="email" placeholder="Your Email" required>
+            <button type="submit">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <div>© 2026 LUMÉ Salon & Studio. All Rights Reserved.</div>
+        <div>Designed with elegant aesthetics.</div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- =====================================================
+       PART B — CUSTOMER WEB APP (AFTER LOGIN)
+       ===================================================== -->
+  <div id="customer-view">
+    <div class="app-layout">
+      <!-- App Sidebar -->
+      <aside class="app-sidebar">
+        <div class="sidebar-top">
+          <div>
+            <div class="sidebar-logo">LUMÉ<span>.</span></div>
+            <div style="font-size: 0.8rem; color: var(--color-accent); font-weight: 500; text-transform: uppercase; letter-spacing: 2px;">Book Your Glow</div>
+          </div>
+          <nav class="sidebar-nav">
+            <button class="sidebar-nav-btn active" id="cnav-home" onclick="switchCustomerScreen('home')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              <span>Home & Feed</span>
+            </button>
+            <button class="sidebar-nav-btn" id="cnav-staff" onclick="switchCustomerScreen('staff')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <span>Stylist Team</span>
+            </button>
+            <button class="sidebar-nav-btn" id="cnav-favorites" onclick="switchCustomerScreen('favorites')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+              <span>My Favorites</span>
+            </button>
+            <button class="sidebar-nav-btn" id="cnav-services" onclick="switchCustomerScreen('services')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"></path><path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5Z"></path><path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z"></path></svg>
+              <span>Services Menu</span>
+            </button>
+            <button class="sidebar-nav-btn" id="cnav-bookings" onclick="switchCustomerScreen('bookings')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span>My Bookings</span>
+            </button>
+            <button class="sidebar-nav-btn" id="cnav-profile" onclick="switchCustomerScreen('profile')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              <span>User Profile</span>
+            </button>
+          </nav>
+        </div>
+
+        <div class="sidebar-profile">
+          <div class="sidebar-profile-img" id="cust-avatar-abbr">DS</div>
+          <div class="sidebar-profile-info">
+            <h4 id="cust-profile-name">Devansh Sharma</h4>
+            <p>Loyal Customer</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- App Main Content Area -->
+      <main class="app-main">
+        
+        <!-- Screen: Home / Dashboard -->
+        <section id="customer-screen-home" class="app-screen active">
+          <div class="customer-banner">
+            <div class="customer-banner-content">
+              <h2>Ready for your next glow, <span id="welcome-name">Devansh</span>?</h2>
+              <p>Book with our award-winning artisans and enjoy high-end hair styling, facials, and grooming.</p>
+              <button class="btn btn-primary" onclick="initiateBookingFlow()">Book Appointment Now</button>
+            </div>
+          </div>
+
+          <div class="screen-header">
+            <h3>Popular Services</h3>
+            <button class="btn-text" onclick="switchCustomerScreen('services')">View Menu →</button>
+          </div>
+          <div id="cust-home-services" style="display: flex; flex-direction: column; gap: 20px; margin-top: 24px;">
+            <!-- Dynamic popular services -->
+          </div>
+
+          <div class="screen-header" style="margin-top: 48px;">
+            <h3>Featured Stylists</h3>
+            <button class="btn-text" onclick="switchCustomerScreen('staff')">Meet All Experts →</button>
+          </div>
+          <div class="card-grid" id="cust-home-staff">
+            <!-- Dynamic featured staff -->
+          </div>
+        </section>
+
+        <!-- Screen: Staff Directory & Profiles -->
+        <section id="customer-screen-staff" class="app-screen">
+          <div class="screen-header">
+            <div>
+              <h2 class="screen-title">Our Artisan Stylists</h2>
+              <p class="screen-subtitle">Filter by specialty to find your ideal matching artist</p>
+            </div>
+          </div>
+
+          <div class="filters-bar">
+            <div class="search-input-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+              <input type="text" id="staff-search-input" placeholder="Search stylists by name or specialties..." oninput="filterStaff()">
+            </div>
+            <div class="filter-dropdowns">
+              <select id="staff-filter-specialty" class="filter-select" onchange="filterStaff()">
+                <option value="All">All Specialties</option>
+                <option value="Hair">Hair</option>
+                <option value="Nails">Nails</option>
+                <option value="Grooming">Grooming</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Staff Grid -->
+          <div class="card-grid" id="cust-staff-grid">
+            <!-- Dynamic Staff Cards -->
+          </div>
+
+          <!-- Staff Detailed Profile View (Slide-in / Expandable layout) -->
+          <div id="staff-detail-pane" style="display:none; margin-top: 48px; padding-top:40px; border-top: 1px solid var(--color-bg-secondary);">
+            <button class="btn btn-secondary" onclick="closeStaffDetail()" style="margin-bottom: 24px;">← Back to Directory</button>
+            <div class="profile-layout" id="staff-detail-content">
+              <!-- Dynamically populated profile content -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Screen: Favorites Section -->
+        <section id="customer-screen-favorites" class="app-screen">
+          <div class="screen-header">
+            <div>
+              <h2 class="screen-title">My Favorites</h2>
+              <p class="screen-subtitle">Your handpicked dream team of stylists</p>
+            </div>
+          </div>
+          <div class="card-grid" id="cust-favorites-grid">
+            <!-- Dynamic Favorites -->
+          </div>
+        </section>
+
+        <!-- Screen: Services Section -->
+        <section id="customer-screen-services" class="app-screen">
+          <div class="screen-header">
+            <div>
+              <h2 class="screen-title">Our Services Menu</h2>
+              <p class="screen-subtitle">Curated beauty, hair design, and body care ranges</p>
+            </div>
+          </div>
+
+          <div class="filters-bar">
+            <div class="search-input-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+              <input type="text" id="services-search-input" placeholder="Search services..." oninput="filterServices()">
+            </div>
+            <div class="filter-dropdowns">
+              <select id="services-filter-category" class="filter-select" onchange="filterServices()">
+                <option value="All">All Categories</option>
+                <option value="Hair">Hair Styling</option>
+                <option value="Skin">Skin Care</option>
+                <option value="Nails">Nails</option>
+                <option value="Grooming">Men's Grooming</option>
+                <option value="Spa">Spa & Relaxation</option>
+                <option value="Makeup">Professional Makeup</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="cust-services-menu">
+            <!-- Dynamic Services by Category -->
+          </div>
+        </section>
+
+        <!-- Screen: Booking Flow Wizard -->
+        <section id="customer-screen-booking" class="app-screen">
+          <div class="screen-header">
+            <div>
+              <h2 class="screen-title">Book an Appointment</h2>
+              <p class="screen-subtitle">Complete 4 simple steps to book your glow</p>
+            </div>
+            <button class="btn btn-secondary" onclick="switchCustomerScreen('home')">Cancel</button>
+          </div>
+
+          <div class="booking-wizard">
+            <div class="wizard-steps">
+              <div class="wizard-step-node active" id="wnode-1">
+                <span>1</span>
+                <span class="step-label">Services</span>
+              </div>
+              <div class="wizard-step-node" id="wnode-2">
+                <span>2</span>
+                <span class="step-label">Stylist</span>
+              </div>
+              <div class="wizard-step-node" id="wnode-3">
+                <span>3</span>
+                <span class="step-label">Schedule</span>
+              </div>
+              <div class="wizard-step-node" id="wnode-4">
+                <span>4</span>
+                <span class="step-label">Summary</span>
+              </div>
+            </div>
+
+            <!-- Panel 1: Select Services -->
+            <div class="wizard-panel active" id="wpanel-1">
+              <h3 style="margin-bottom: 12px; font-family: var(--font-body); font-weight:600;">Step 1: Select Services</h3>
+              <p style="color: var(--color-text-secondary); margin-bottom: 24px;">Choose one or more treatments you wish to schedule.</p>
+              
+              <!-- Service Filters Bar -->
+              <div id="wselect-services-filters"></div>
+
+              <div class="wizard-service-list" id="wselect-services-list">
+                <!-- Checkbox list of services -->
+              </div>
+              <div class="text-right" style="margin-top: 24px;">
+                <button class="btn btn-primary" onclick="wizardNextStep(2)">Continue to Stylist</button>
+              </div>
+            </div>
+
+            <!-- Panel 2: Select Staff -->
+            <div class="wizard-panel" id="wpanel-2">
+              <h3 style="margin-bottom: 12px; font-family: var(--font-body); font-weight:600;">Step 2: Choose Stylist</h3>
+              <p style="color: var(--color-text-secondary); margin-bottom: 24px;">Select your preferred expert, or let us pair you with whoever is available.</p>
+              <div class="card-grid" id="wselect-staff-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+                <!-- Radio-style cards for staff -->
+              </div>
+              <div class="flex" style="justify-content: space-between; margin-top: 32px;">
+                <button class="btn btn-secondary" onclick="wizardNextStep(1)">Back</button>
+                <button class="btn btn-primary" onclick="wizardNextStep(3)">Continue to Date & Time</button>
+              </div>
+            </div>
+
+            <!-- Panel 3: Select Date & Time -->
+            <div class="wizard-panel" id="wpanel-3">
+              <h3 style="margin-bottom: 12px; font-family: var(--font-body); font-weight:600;">Step 3: Select Date & Time</h3>
+              <p style="color: var(--color-text-secondary); margin-bottom: 24px;">Pick your preferred visit date and available slot.</p>
+              
+              <div class="form-group">
+                <label class="form-label" for="booking-date-input">Select Date</label>
+                <input type="date" id="booking-date-input" class="calendar-input" onchange="loadAvailableTimeSlots()">
+              </div>
+
+              <div class="form-group" style="margin-top: 32px;">
+                <label class="form-label">Available Time Slots</label>
+                <div class="slots-container" id="wbooking-slots">
+                  <!-- Hour slot button options -->
+                </div>
+              </div>
+
+              <div class="flex" style="justify-content: space-between; margin-top: 32px;">
+                <button class="btn btn-secondary" onclick="wizardNextStep(2)">Back</button>
+                <button class="btn btn-primary" onclick="wizardNextStep(4)">Continue to Summary</button>
+              </div>
+            </div>
+
+            <!-- Panel 4: Review Summary -->
+            <div class="wizard-panel" id="wpanel-4">
+              <h3 style="margin-bottom: 12px; font-family: var(--font-body); font-weight:600;">Step 4: Confirm Booking</h3>
+              <p style="color: var(--color-text-secondary); margin-bottom: 24px;">Double check your selection details before completing.</p>
+              
+              <div style="background-color: var(--color-bg-secondary); padding: 24px; border-radius: var(--radius-md); margin-bottom: 24px;" id="wsummary-content">
+                <!-- Summary summary values details dynamically populated -->
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="wbooking-notes">Special Requests / Notes</label>
+                <textarea id="wbooking-notes" class="form-control" rows="3" placeholder="Add any hair concerns, allergies, or specific requests here..."></textarea>
+              </div>
+
+              <div class="flex" style="justify-content: space-between; margin-top: 32px;">
+                <button class="btn btn-secondary" onclick="wizardNextStep(3)">Back</button>
+                <button class="btn btn-primary" onclick="submitBookingFlow()">Submit Booking Request</button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Screen: Bookings List -->
+        <section id="customer-screen-bookings" class="app-screen">
+          <div class="screen-header">
+            <div>
+              <h2 class="screen-title">My Bookings</h2>
+              <p class="screen-subtitle">Track your upcoming appointments and history</p>
+            </div>
+            <button class="btn btn-primary" onclick="initiateBookingFlow()">+ Book Appointment</button>
+          </div>
+
+          <div class="tab-nav" style="justify-content: flex-start; border-bottom: 1px solid var(--color-bg-secondary); padding-bottom: 12px;">
+            <button class="tab-btn active" id="bk-filter-all" onclick="filterCustomerBookings('All')">All</button>
+            <button class="tab-btn" id="bk-filter-pending" onclick="filterCustomerBookings('Pending')">Pending</button>
+            <button class="tab-btn" id="bk-filter-confirmed" onclick="filterCustomerBookings('Confirmed')">Confirmed</button>
+            <button class="tab-btn" id="bk-filter-completed" onclick="filterCustomerBookings('Completed')">Completed</button>
+            <button class="tab-btn" id="bk-filter-cancelled" onclick="filterCustomerBookings('Cancelled')">Cancelled</button>
+          </div>
+
+          <div class="booking-card-list" id="cust-bookings-list" style="margin-top: 32px;">
+            <!-- Dynamic Booking Cards -->
+          </div>
+        </section>
+
+        <!-- Screen: User Profile -->
+        <section id="customer-screen-profile" class="app-screen">
+          <div class="screen-header">
+            <div>
+              <h2 class="screen-title">My Account</h2>
+              <p class="screen-subtitle">Manage your personal details and booking preferences</p>
+            </div>
+          </div>
+          
+          <div class="booking-wizard" style="max-width: 650px; margin: 0;">
+            <form onsubmit="saveCustomerProfile(event)">
+              <div class="form-group">
+                <label class="form-label" for="profile-input-name">Full Name</label>
+                <input type="text" id="profile-input-name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profile-input-email">Email Address</label>
+                <input type="email" id="profile-input-email" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profile-input-phone">Phone Number</label>
+                <input type="tel" id="profile-input-phone" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profile-input-gender">Stylist Matching Preference</label>
+                <select id="profile-input-gender" class="form-control">
+                  <option value="Unisex">No Preference (Unisex)</option>
+                  <option value="Female">Prefer Female Stylists</option>
+                  <option value="Male">Prefer Male Stylists</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary" style="margin-top: 12px;">Save Profile Changes</button>
+            </form>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       PART C — ADMIN DASHBOARD
+       ===================================================== -->
+  <div id="admin-view">
+    <div class="admin-layout">
+      <!-- Admin Sidebar -->
+      <aside class="admin-sidebar">
+        <div class="sidebar-top">
+          <div>
+            <div class="sidebar-logo">LUMÉ<span>.</span></div>
+            <div style="font-size: 0.75rem; color: var(--color-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px;">Studio Portal</div>
+          </div>
+          <nav class="sidebar-nav">
+            <button class="sidebar-nav-btn active" id="anav-home" onclick="switchAdminScreen('home')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+              <span>Admin Home</span>
+            </button>
+            <button class="sidebar-nav-btn" id="anav-bookings" onclick="switchAdminScreen('bookings')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span>Bookings Manager</span>
+            </button>
+            <button class="sidebar-nav-btn" id="anav-staff" onclick="switchAdminScreen('staff')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <span>Staff Roster</span>
+            </button>
+            <button class="sidebar-nav-btn" id="anav-services" onclick="switchAdminScreen('services')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"></path><path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5Z"></path><path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z"></path></svg>
+              <span>Services Editor</span>
+            </button>
+            <button class="sidebar-nav-btn" id="anav-customers" onclick="switchAdminScreen('customers')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <span>Client Directory</span>
+            </button>
+            <button class="sidebar-nav-btn" id="anav-analytics" onclick="switchAdminScreen('analytics')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              <span>Business Trends</span>
+            </button>
+          </nav>
+        </div>
+
+        <div style="font-size: 0.8rem; color: var(--color-text-muted);">
+          Logged in as: <strong>Admin Manager</strong>
+        </div>
+      </aside>
+
+      <!-- Admin Main Content Area -->
+      <main class="app-main">
+        
+        <!-- Screen: Admin Home / Stats -->
+        <section id="admin-screen-home" class="app-screen active">
+          <div class="screen-header">
+            <div>
+              <h2 class="screen-title">Salon Operations</h2>
+              <p class="screen-subtitle">Today's metrics and pending requests</p>
+            </div>
+          </div>
+
+          <!-- Stats Widgets Grid -->
+          <div class="admin-stats-grid">
+            <div class="admin-stat-card">
+              <div class="admin-stat-title">Pending Confirmation</div>
+              <div class="admin-stat-value" id="astat-pending">0</div>
+              <div class="admin-stat-change">Requires review</div>
+            </div>
+            <div class="admin-stat-card">
+              <div class="admin-stat-title">Total Active Bookings</div>
+              <div class="admin-stat-value" id="astat-active">0</div>
+              <div class="admin-stat-change">Confirmed & Pending</div>
+            </div>
+            <div class="admin-stat-card">
+              <div class="admin-stat-title">Estimated Monthly Revenue</div>
+              <div class="admin-stat-value" id="astat-revenue">₹0</div>
+              <div class="admin-stat-change">+12% from last month</div>
+            </div>
+            <div class="admin-stat-card">
+              <div class="admin-stat-title">Specialist Roster</div>
+              <div class="admin-stat-value" id="astat-staff">0</div>
+              <div class="admin-stat-change">Active members</div>
+            </div>
+          </div>
+
+          <div class="screen-header">
+            <h3>Recent Bookings Action Queue</h3>
+            <button class="btn btn-secondary" onclick="switchAdminScreen('bookings')">View All Bookings</button>
+          </div>
+          
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Artisan</th>
+                  <th>Date & Time</th>
+                  <th>Selected Services</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Quick Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-queue-tbody">
+                <!-- Actionable bookings -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Screen: Booking Management -->
+        <section id="admin-screen-bookings" class="app-screen">
+          <div class="screen-header">
+            <div>
+              <h2 class="screen-title">Bookings Manager</h2>
+              <p class="screen-subtitle">Oversee, edit status, and filter salon appointments</p>
+            </div>
+          </div>
+
+          <div class="filters-bar">
+            <div class="search-input-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+              <input type="text" id="admin-bookings-search" placeholder="Search by customer name..." oninput="filterAdminBookings()">
+            </div>
+            <div class="filter-dropdowns">
+              <select id="admin-bookings-filter-status" class="filter-select" onchange="filterAdminBookings()">
+                <option value="All">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled/Rejected</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Customer</th>
+                  <th>Phone</th>
+                  <th>Artisan Stylist</th>
+                  <th>Schedule</th>
+                  <th>Services</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-bookings-tbody">
+                <!-- All bookings populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Screen: Staff Management (Roster CRUD) -->
+        <section id="admin-screen-staff" class="app-screen">
+          <div class="admin-crud-header">
+            <div>
+              <h2 class="screen-title">Staff Roster Management</h2>
+              <p class="screen-subtitle">Manage specialist bios, hourly schedules, and portfolio directories</p>
+            </div>
+            <button class="btn btn-primary" onclick="openStaffModal()">+ Add New Stylist</button>
+          </div>
+
+          <div class="crud-grid" id="admin-staff-grid">
+            <!-- Dynamic staff panels with Edit/Delete buttons -->
+          </div>
+        </section>
+
+        <!-- Screen: Service & Pricing Management -->
+        <section id="admin-screen-services" class="app-screen">
+          <div class="admin-crud-header">
+            <div>
+              <h2 class="screen-title">Services Catalog Editor</h2>
+              <p class="screen-subtitle">Add styling categories, set price boundaries, and edit sessions duration</p>
+            </div>
+            <button class="btn btn-primary" onclick="openServiceModal()">+ Create New Service</button>
+          </div>
+
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Service Detail</th>
+                  <th>Category</th>
+                  <th>Price Span (Min - Max)</th>
+                  <th>Duration</th>
+                  <th>Short Description</th>
+                  <th>Settings</th>
+                </tr>
+              </thead>
+              <tbody id="admin-services-tbody">
+                <!-- Services directory catalog table -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Screen: Customer List -->
+        <section id="admin-screen-customers" class="app-screen">
+          <div class="screen-header">
+            <div>
+              <h2 class="screen-title">Customer Database</h2>
+              <p class="screen-subtitle">Client records, contact details, and histories</p>
+            </div>
+          </div>
+
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Client Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Total Bookings</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-customers-tbody">
+                <!-- Customer registry -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Screen: Business Analytics -->
+        <section id="admin-screen-analytics" class="app-screen">
+          <div class="screen-header">
+            <div>
+              <h2 class="screen-title">Business Analytics Dashboard</h2>
+              <p class="screen-subtitle">Visualize customer preferences and booking distribution</p>
+            </div>
+          </div>
+
+          <!-- Pure CSS/HTML bar chart representing Bookings per Stylist -->
+          <div class="analytics-chart-container">
+            <h3 style="margin-bottom: 24px;">Artist Booking Activity (Total Bookings)</h3>
+            <div class="bar-chart" id="chart-staff-bookings">
+              <!-- Dynamically rendered bars -->
+            </div>
+          </div>
+
+          <!-- Pure CSS/HTML bar chart representing Services by Category -->
+          <div class="analytics-chart-container">
+            <h3 style="margin-bottom: 24px;">Popularity by Service Category</h3>
+            <div class="bar-chart" id="chart-category-bookings">
+              <!-- Dynamically rendered bars -->
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       GLOBAL MODAL DIALOGS
+       ===================================================== -->
+  
+  <!-- Image Lightbox Modal -->
+  <div class="modal-overlay" id="modal-lightbox" onclick="closeLightbox()">
+    <div class="modal-box" style="background:none; box-shadow:none; max-width:850px; text-align:center;">
+      <button class="modal-close" style="color:#FFF;">&times;</button>
+      <img id="lightbox-img" src="" alt="Zoomed view" style="border-radius: var(--radius-md); max-height:80vh; margin:0 auto; box-shadow:var(--shadow-premium);">
+    </div>
+  </div>
+
+  <!-- Admin Staff CRUD Form Modal -->
+  <div class="modal-overlay" id="modal-staff-form">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeStaffModal()">&times;</button>
+      <h3 class="modal-title" id="staff-modal-title">Add New Stylist</h3>
+      <form onsubmit="handleStaffSubmit(event)">
+        <input type="hidden" id="staff-form-id">
+        <div class="form-group">
+          <label class="form-label" for="staff-form-name">Stylist Full Name</label>
+          <input type="text" id="staff-form-name" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="staff-form-specialty">Specialty Text (e.g. Master Colorist)</label>
+          <input type="text" id="staff-form-specialty" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="staff-form-category">Primary Category</label>
+          <select id="staff-form-category" class="form-control">
+            <option value="Hair">Hair</option>
+            <option value="Nails">Nails</option>
+            <option value="Skin">Skin</option>
+            <option value="Grooming">Grooming</option>
+            <option value="Spa">Spa & Makeup</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="staff-form-bio">Bio Details</label>
+          <textarea id="staff-form-bio" class="form-control" rows="3" required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeStaffModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Service CRUD Form Modal -->
+  <div class="modal-overlay" id="modal-service-form">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeServiceModal()">&times;</button>
+      <h3 class="modal-title" id="service-modal-title">Create New Service</h3>
+      <form onsubmit="handleServiceSubmit(event)">
+        <input type="hidden" id="service-form-id">
+        <div class="form-group">
+          <label class="form-label" for="service-form-name">Service Title</label>
+          <input type="text" id="service-form-name" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="service-form-category">Category</label>
+          <select id="service-form-category" class="form-control">
+            <option value="Hair">Hair</option>
+            <option value="Skin">Skin</option>
+            <option value="Nails">Nails</option>
+            <option value="Grooming">Grooming</option>
+            <option value="Spa">Spa</option>
+            <option value="Makeup">Makeup</option>
+          </select>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <div class="form-group">
+            <label class="form-label" for="service-form-min">Min Price (₹)</label>
+            <input type="number" id="service-form-min" class="form-control" required min="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="service-form-max">Max Price (₹)</label>
+            <input type="number" id="service-form-max" class="form-control" required min="1">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="service-form-duration">Duration (Minutes)</label>
+          <input type="number" id="service-form-duration" class="form-control" required min="5" step="5">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="service-form-desc">Short Description</label>
+          <textarea id="service-form-desc" class="form-control" rows="3" required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeServiceModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Publish Service</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Reschedule Booking Modal -->
+  <div class="modal-overlay" id="modal-reschedule">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeRescheduleModal()">&times;</button>
+      <h3 class="modal-title">Reschedule Appointment</h3>
+      <form onsubmit="handleRescheduleSubmit(event)">
+        <input type="hidden" id="reschedule-booking-id">
+        <div class="form-group">
+          <label class="form-label" for="reschedule-date">New Date</label>
+          <input type="date" id="reschedule-date" class="form-control" required onchange="loadRescheduleSlots()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Available Slots</label>
+          <div class="slots-container" id="reschedule-slots">
+            <!-- Dynamically loaded timeslots -->
+          </div>
+        </div>
+        <div class="modal-footer" style="margin-top:32px;">
+          <button type="button" class="btn btn-secondary" onclick="closeRescheduleModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update Appointment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Booking Success Celebration -->
+  <div class="modal-overlay" id="modal-booking-success">
+    <div class="modal-box text-center" style="max-width: 450px; padding: 40px;">
+      <div style="width: 80px; height: 80px; background-color: var(--color-success-light); color: var(--color-success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; animation: scaleUp 0.4s ease-out;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h3 class="modal-title" style="font-size: 1.6rem; margin-bottom: 12px; font-family: var(--font-heading);">Booking Requested!</h3>
+      <p style="color: var(--color-text-secondary); margin-bottom: 24px; line-height: 1.5; font-size: 0.95rem;">Your appointment request has been submitted. Our team will review and confirm it shortly.</p>
+      
+      <div style="background-color: var(--color-bg-secondary); padding: 16px; border-radius: var(--radius-sm); margin-bottom: 30px; text-align: left; border: 1px solid rgba(0,0,0,0.02);">
+        <div style="font-size: 0.75rem; margin-bottom: 6px; color: var(--color-text-muted); font-weight:600; letter-spacing:0.5px; text-transform:uppercase;">APPOINTMENT DETAILS</div>
+        <strong id="success-modal-services" style="display: block; margin-bottom: 6px; font-size: 1rem; font-weight:600; color:var(--color-text-primary);">Signature Haircut</strong>
+        <span id="success-modal-datetime" style="font-size: 0.85rem; color: var(--color-accent); font-weight: 600;">Tomorrow at 10:00 AM</span>
+      </div>
+
+      <button class="btn btn-primary" style="width: 100%; padding: 14px;" onclick="closeSuccessModalAndShowBookings()">View My Bookings</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
