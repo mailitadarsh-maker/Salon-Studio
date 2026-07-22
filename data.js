@@ -256,9 +256,52 @@ const KEYS = {
 // --- DATA ACCESS LAYER ---
 const LumeStore = {
   init() {
-    // If the old user Darren Finch exists, clear storage to reload the Indian context datasets
+    let needsReset = false;
+    
+    // 1. Check if user is old or missing
     const oldUser = localStorage.getItem(KEYS.CURRENT_USER);
-    if (oldUser && JSON.parse(oldUser).name === "Darren Finch") {
+    if (oldUser) {
+      try {
+        const u = JSON.parse(oldUser);
+        if (u.name === "Darren Finch") needsReset = true;
+      } catch(e) { needsReset = true; }
+    } else {
+      needsReset = true;
+    }
+
+    // 2. Check if services are missing or mismatch
+    const storedServs = localStorage.getItem(KEYS.SERVICES);
+    if (storedServs) {
+      try {
+        const list = JSON.parse(storedServs);
+        const seedIds = DEFAULT_SERVICES.map(s => s.id);
+        const storedIds = list.map(s => s.id);
+        const hasAll = seedIds.every(id => storedIds.includes(id));
+        if (!hasAll || list.length !== DEFAULT_SERVICES.length) {
+          needsReset = true;
+        }
+      } catch(e) { needsReset = true; }
+    } else {
+      needsReset = true;
+    }
+
+    // 3. Check if staff are missing or mismatch
+    const storedStaff = localStorage.getItem(KEYS.STAFF);
+    if (storedStaff) {
+      try {
+        const list = JSON.parse(storedStaff);
+        const seedIds = DEFAULT_STAFF.map(s => s.id);
+        const storedIds = list.map(s => s.id);
+        const hasAll = seedIds.every(id => storedIds.includes(id));
+        if (!hasAll || list.length !== DEFAULT_STAFF.length) {
+          needsReset = true;
+        }
+      } catch(e) { needsReset = true; }
+    } else {
+      needsReset = true;
+    }
+
+    if (needsReset) {
       localStorage.clear();
     }
 
