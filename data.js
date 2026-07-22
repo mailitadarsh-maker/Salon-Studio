@@ -254,12 +254,43 @@ const KEYS = {
 };
 
 // --- DATA ACCESS LAYER ---
+// --- DATA ACCESS LAYER ---
+const _memoryDb = {};
+
 const LumeStore = {
+  // Safe helper to write to storage
+  _setItem(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch(e) {
+      _memoryDb[key] = value;
+    }
+  },
+  
+  // Safe helper to read from storage
+  _getItem(key) {
+    try {
+      return localStorage.getItem(key) || _memoryDb[key] || null;
+    } catch(e) {
+      return _memoryDb[key] || null;
+    }
+  },
+
+  // Safe helper to clear storage
+  _clear() {
+    try {
+      localStorage.clear();
+    } catch(e) {}
+    for (const key in _memoryDb) {
+      delete _memoryDb[key];
+    }
+  },
+
   init() {
     let needsReset = false;
     
     // 1. Check if user is old or missing
-    const oldUser = localStorage.getItem(KEYS.CURRENT_USER);
+    const oldUser = this._getItem(KEYS.CURRENT_USER);
     if (oldUser) {
       try {
         const u = JSON.parse(oldUser);
@@ -270,7 +301,7 @@ const LumeStore = {
     }
 
     // 2. Check if services are missing or mismatch
-    const storedServs = localStorage.getItem(KEYS.SERVICES);
+    const storedServs = this._getItem(KEYS.SERVICES);
     if (storedServs) {
       try {
         const list = JSON.parse(storedServs);
@@ -286,7 +317,7 @@ const LumeStore = {
     }
 
     // 3. Check if staff are missing or mismatch
-    const storedStaff = localStorage.getItem(KEYS.STAFF);
+    const storedStaff = this._getItem(KEYS.STAFF);
     if (storedStaff) {
       try {
         const list = JSON.parse(storedStaff);
@@ -302,23 +333,23 @@ const LumeStore = {
     }
 
     if (needsReset) {
-      localStorage.clear();
+      this._clear();
     }
 
-    if (!localStorage.getItem(KEYS.SERVICES)) {
-      localStorage.setItem(KEYS.SERVICES, JSON.stringify(DEFAULT_SERVICES));
+    if (!this._getItem(KEYS.SERVICES)) {
+      this._setItem(KEYS.SERVICES, JSON.stringify(DEFAULT_SERVICES));
     }
-    if (!localStorage.getItem(KEYS.STAFF)) {
-      localStorage.setItem(KEYS.STAFF, JSON.stringify(DEFAULT_STAFF));
+    if (!this._getItem(KEYS.STAFF)) {
+      this._setItem(KEYS.STAFF, JSON.stringify(DEFAULT_STAFF));
     }
-    if (!localStorage.getItem(KEYS.BOOKINGS)) {
-      localStorage.setItem(KEYS.BOOKINGS, JSON.stringify(DEFAULT_BOOKINGS));
+    if (!this._getItem(KEYS.BOOKINGS)) {
+      this._setItem(KEYS.BOOKINGS, JSON.stringify(DEFAULT_BOOKINGS));
     }
-    if (!localStorage.getItem(KEYS.FAVORITES)) {
-      localStorage.setItem(KEYS.FAVORITES, JSON.stringify([]));
+    if (!this._getItem(KEYS.FAVORITES)) {
+      this._setItem(KEYS.FAVORITES, JSON.stringify([]));
     }
-    if (!localStorage.getItem(KEYS.CURRENT_USER)) {
-      localStorage.setItem(KEYS.CURRENT_USER, JSON.stringify({
+    if (!this._getItem(KEYS.CURRENT_USER)) {
+      this._setItem(KEYS.CURRENT_USER, JSON.stringify({
         name: "Devansh Sharma",
         email: "devansh.sharma@example.com",
         phone: "+91 98765 43210",
@@ -330,10 +361,10 @@ const LumeStore = {
   // SERVICES
   getServices() {
     this.init();
-    return JSON.parse(localStorage.getItem(KEYS.SERVICES));
+    return JSON.parse(this._getItem(KEYS.SERVICES));
   },
   saveServices(services) {
-    localStorage.setItem(KEYS.SERVICES, JSON.stringify(services));
+    this._setItem(KEYS.SERVICES, JSON.stringify(services));
   },
   addService(service) {
     const list = this.getServices();
@@ -358,10 +389,10 @@ const LumeStore = {
   // STAFF
   getStaff() {
     this.init();
-    return JSON.parse(localStorage.getItem(KEYS.STAFF));
+    return JSON.parse(this._getItem(KEYS.STAFF));
   },
   saveStaff(staff) {
-    localStorage.setItem(KEYS.STAFF, JSON.stringify(staff));
+    this._setItem(KEYS.STAFF, JSON.stringify(staff));
   },
   addStaff(member) {
     const list = this.getStaff();
@@ -386,10 +417,10 @@ const LumeStore = {
   // BOOKINGS
   getBookings() {
     this.init();
-    return JSON.parse(localStorage.getItem(KEYS.BOOKINGS));
+    return JSON.parse(this._getItem(KEYS.BOOKINGS));
   },
   saveBookings(bookings) {
-    localStorage.setItem(KEYS.BOOKINGS, JSON.stringify(bookings));
+    this._setItem(KEYS.BOOKINGS, JSON.stringify(bookings));
   },
   addBooking(booking) {
     const list = this.getBookings();
@@ -414,7 +445,7 @@ const LumeStore = {
   // FAVORITES
   getFavorites() {
     this.init();
-    return JSON.parse(localStorage.getItem(KEYS.FAVORITES));
+    return JSON.parse(this._getItem(KEYS.FAVORITES));
   },
   toggleFavorite(staffId) {
     const favs = this.getFavorites();
@@ -424,7 +455,7 @@ const LumeStore = {
     } else {
       favs.splice(idx, 1);
     }
-    localStorage.setItem(KEYS.FAVORITES, JSON.stringify(favs));
+    this._setItem(KEYS.FAVORITES, JSON.stringify(favs));
     return favs;
   },
   isFavorite(staffId) {
@@ -434,10 +465,10 @@ const LumeStore = {
   // CURRENT USER
   getCurrentUser() {
     this.init();
-    return JSON.parse(localStorage.getItem(KEYS.CURRENT_USER));
+    return JSON.parse(this._getItem(KEYS.CURRENT_USER));
   },
   updateCurrentUser(userData) {
-    localStorage.setItem(KEYS.CURRENT_USER, JSON.stringify(userData));
+    this._setItem(KEYS.CURRENT_USER, JSON.stringify(userData));
   },
 
   // REVIEWS
